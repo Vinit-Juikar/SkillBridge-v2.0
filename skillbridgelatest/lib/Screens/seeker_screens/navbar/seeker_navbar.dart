@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:skillbridgelatest/Screens/seeker_screens/screens/home/seeker_home.dart';
 
-import '../../../login/firebase/auth.dart';
-
 class SeekerNavbar extends StatefulWidget {
   const SeekerNavbar({super.key});
 
@@ -17,15 +15,15 @@ class _SeekerNavbarState extends State<SeekerNavbar> {
   static final List<Widget> _widgetOptions = <Widget>[
     const SeekerHomeScreen(),
     const Text(
-      'Stories',
+      'Feed',
       style: optionStyle,
     ),
     const Text(
-      'Quiz',
+      'Request',
       style: optionStyle,
     ),
     const Text(
-      'Stories',
+      'News',
       style: optionStyle,
     ),
   ];

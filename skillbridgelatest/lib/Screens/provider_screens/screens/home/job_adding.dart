@@ -1,12 +1,9 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 
-import '../../Common/Lists.dart';
-import '../../Common/shared_p.dart';
-import '../../Screens/seeker_screens/navbar/seeker_navbar.dart';
-import '../firebase/auth.dart';
+import '../../../../Common/Lists.dart';
+import '../../../../login/firebase/auth.dart';
 
 List vara = [
   false,
@@ -37,8 +34,8 @@ var gender;
 var lName;
 var image;
 
-class SelectProfile extends StatelessWidget {
-  const SelectProfile({super.key});
+class CreateJob extends StatelessWidget {
+  const CreateJob({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -52,9 +49,14 @@ class SelectProfile extends StatelessWidget {
         backgroundColor: const Color.fromARGB(0, 0, 0, 0),
         elevation: 0,
         automaticallyImplyLeading: false,
-        leading: const Icon(
-          Icons.arrow_back_ios_new,
-          color: Colors.grey,
+        leading: GestureDetector(
+          onTap: () {
+            Navigator.pop(context);
+          },
+          child: const Icon(
+            Icons.arrow_back_ios_new,
+            color: Colors.grey,
+          ),
         ),
         title: const Text(
           'Professions',
@@ -105,14 +107,7 @@ class SelectProfile extends StatelessWidget {
                     vara[9] == true) {
                   print(vara);
                   selectProfileNow(number);
-                  SharedPreferences prefs =
-                      await getSharedPreferencesInstance();
-                  prefs.setString('option', 'seekerLogin');
-                  Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                        builder: (context) => const SeekerNavbar(),
-                      ));
+                  Navigator.pop(context);
                 } else {
                   ScaffoldMessenger.of(context).showSnackBar(
                       const SnackBar(content: Text("Choose One Option")));
@@ -223,12 +218,9 @@ void selectProfileNow(String number) async {
   for (var i = 0; i < 10; i++) {
     String proffes = professionsOnFirebase[i];
     if (vara[i]) {
-      final carpJob = FirebaseFirestore.instance.collection('jobProfile').doc();
+      final carpJob = FirebaseFirestore.instance.collection('createJob').doc();
       await docref.update({
-        'createdProfile.$proffes': true,
-      });
-      await docref.update({
-        'createProfile.$proffes': {'id': carpJob.id}
+        'createJob': FieldValue.arrayUnion([carpJob.id]),
       });
       await carpJob.set({
         'id': 'AKMPVGS${number}89754321',
@@ -237,8 +229,6 @@ void selectProfileNow(String number) async {
         'gender': gender,
         'workType': proffes,
         'image': image,
-        'rating': 5.0,
-        'ratingList': [],
         'recieveList': [],
         'goingApplication': []
       });

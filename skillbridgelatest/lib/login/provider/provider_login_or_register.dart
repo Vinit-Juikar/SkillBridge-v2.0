@@ -49,7 +49,7 @@ class ProviderLoginOrRegister extends StatelessWidget {
                 repeatForever: true,
                 animatedTexts: [
                   TyperAnimatedText(
-                    'MedBridge',
+                    'SkillBridge',
                     textStyle: const TextStyle(
                       color: Color.fromARGB(255, 255, 255, 255),
                       fontSize: 35,

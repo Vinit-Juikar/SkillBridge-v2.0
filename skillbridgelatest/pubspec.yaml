@@ -43,6 +43,7 @@ dependencies:
   animated_text_kit: ^4.2.2
   pinput: ^2.2.31
   firebase_storage: ^11.0.16
+  carousel_slider: ^4.2.1
 
 dev_dependencies:
   flutter_test:
@@ -73,7 +74,12 @@ flutter:
     - assets/PatientProfile/
     - assets/onBoardingScreenImages/
     - assets/login/
-
+    - assets/providerAssets/
+    - assets/providerAssets/animations/
+    - assets/providerAssets/explore/
+    - assets/providerAssets/videos/
+    - assets/images/
+    - assets/news/
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware
 
