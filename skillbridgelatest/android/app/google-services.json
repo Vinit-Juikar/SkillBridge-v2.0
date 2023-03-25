@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "630808635913",
+    "project_id": "skillbridge-v2-4e233",
+    "storage_bucket": "skillbridge-v2-4e233.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:630808635913:android:2b0236887c3a3adbe8e6d8",
+        "android_client_info": {
+          "package_name": "com.example.skillbridgelatest"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "630808635913-hcc16dktstimk482bttrjqurl06ngl2o.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDNzAiZXrZvxqFtmrrizgYJ2EduXT50OpA"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "630808635913-hcc16dktstimk482bttrjqurl06ngl2o.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
