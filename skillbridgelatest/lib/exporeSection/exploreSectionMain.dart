@@ -16,13 +16,6 @@ class _exploreProviderHomeScreenState extends State<exploreProviderHomeScreen> {
   Widget build(BuildContext context) {
     int _selectedIndex = 0;
 
-    final List<Widget> _screens = [
-      DummyScreen(title: 'Screen 1'),
-      DummyScreen(title: 'Screen 2'),
-      DummyScreen(title: 'Screen 3'),
-      DummyScreen(title: 'Screen 4'),
-    ];
-
     void _onItemTapped(int index) {
       setState(() {
         _selectedIndex = index;
@@ -31,6 +24,7 @@ class _exploreProviderHomeScreenState extends State<exploreProviderHomeScreen> {
 
     return Scaffold(
       appBar: AppBar(
+        backgroundColor: Color.fromARGB(255, 8, 4, 69),
         title: AnimatedDefaultTextStyle(
           style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
           duration: const Duration(milliseconds: 500),
@@ -47,16 +41,17 @@ class _exploreProviderHomeScreenState extends State<exploreProviderHomeScreen> {
   Widget masonryLayout(BuildContext context) {
     List imagesList = [
       'assets/1.jpg',
-      'assets/2.jpg',
+      'assets/2.png',
       'assets/3.jpg',
-      'assets/4.jpg',
+      'assets/4.jpeg',
       'assets/5.jpg',
       'assets/6.jpg',
-      'assets/7.jpg',
-      'assets/8.jpg',
+      'assets/7.webp',
+      'assets/8.png',
       'assets/9.jpg',
       'assets/10.jpg',
-      'assets/11.jpg',
+      'assets/11.png',
+      'assets/12.jpg',
     ];
 
     List<Widget> children = [];
@@ -65,9 +60,11 @@ class _exploreProviderHomeScreenState extends State<exploreProviderHomeScreen> {
         GestureDetector(
           onTap: () {
             showModalBottomSheet(
+              // backgroundColor: Colors.blue,
               context: context,
               builder: (_) {
-                return SizedBox(
+                return Container(
+                  color: Color.fromARGB(255, 152, 157, 250),
                   height: MediaQuery.of(context).size.height * 0.7,
                   child: Column(
                     children: [
@@ -75,7 +72,7 @@ class _exploreProviderHomeScreenState extends State<exploreProviderHomeScreen> {
                         child: Hero(
                           tag: 'image$i',
                           child: Image.asset(
-                            imagesList[i % 11],
+                            imagesList[i],
                             fit: BoxFit.cover,
                           ),
                         ),
@@ -110,7 +107,7 @@ class _exploreProviderHomeScreenState extends State<exploreProviderHomeScreen> {
                   borderRadius: BorderRadius.circular(20),
                 ),
                 child: Image.asset(
-                  imagesList[i % 11],
+                  imagesList[i % 12].toString(),
                   fit: BoxFit.cover,
                 ),
               ),
@@ -124,24 +121,6 @@ class _exploreProviderHomeScreenState extends State<exploreProviderHomeScreen> {
       gridDelegate:
           SliverSimpleGridDelegateWithFixedCrossAxisCount(crossAxisCount: 2),
       children: children,
-    );
-  }
-}
-
-class DummyScreen extends StatelessWidget {
-  final String title;
-
-  const DummyScreen({Key? key, required this.title}) : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: Text(title),
-      ),
-      body: Center(
-        child: Text('This is a dummy screen.'),
-      ),
     );
   }
 }
