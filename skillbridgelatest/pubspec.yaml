@@ -44,6 +44,7 @@ dependencies:
   pinput: ^2.2.31
   firebase_storage: ^11.0.16
   carousel_slider: ^4.2.1
+  staggered_grid_view_flutter: ^0.0.4
 
 dev_dependencies:
   flutter_test:
@@ -68,7 +69,7 @@ flutter:
 
   # To add assets to your application, add an assets section, like this:
   assets:
-
+    - assets/Explore/
     - assets/imagesGauri/
     - assets/providerAssets/Images/
     - assets/
