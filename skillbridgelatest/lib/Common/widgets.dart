@@ -18,6 +18,7 @@ class _JobTypeViewState extends State<JobTypeView> {
       elevation: 8,
       child: Container(
           decoration: BoxDecoration(
+            color: const Color.fromARGB(255, 247, 235, 235),
             border: Border.all(
               color: const Color.fromARGB(255, 219, 217, 217),
               width: 1,
@@ -35,7 +36,7 @@ class _JobTypeViewState extends State<JobTypeView> {
               Container(
                 padding: const EdgeInsets.all(5),
                 alignment: Alignment.center,
-                width: double.infinity,
+                width: MediaQuery.of(context).size.width / 2,
                 height: MediaQuery.of(context).size.width / 8,
                 child: Container(
                   padding: const EdgeInsets.symmetric(horizontal: 10),

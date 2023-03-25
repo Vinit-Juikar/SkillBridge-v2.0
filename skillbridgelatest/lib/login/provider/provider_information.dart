@@ -405,7 +405,13 @@ class _ImagePickerSSState extends State<ImagePickerSS> {
                       color: Colors.white,
                       size: 50,
                     )
-                  : Image.file(image!),
+                  : ClipRRect(
+                      borderRadius: BorderRadius.circular(25),
+                      child: Image.file(
+                        image!,
+                        fit: BoxFit.fitWidth,
+                      ),
+                    ),
             ),
           ),
           Padding(

@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 
-import '../../../login/firebase/auth.dart';
 import '../screens/home/provider_home.dart';
 
 class ProviderNavbar extends StatefulWidget {
@@ -15,17 +14,17 @@ class _ProviderNavbarState extends State<ProviderNavbar> {
   static const TextStyle optionStyle =
       TextStyle(fontSize: 30, fontWeight: FontWeight.bold);
   static final List<Widget> _widgetOptions = <Widget>[
-    const ProviderHomeScreen(),
+    ProviderHomeScreen(),
     const Text(
-      'Stories',
+      'Feed',
       style: optionStyle,
     ),
     const Text(
-      'Quiz',
+      'Request',
       style: optionStyle,
     ),
     const Text(
-      'Stories',
+      'News',
       style: optionStyle,
     ),
   ];

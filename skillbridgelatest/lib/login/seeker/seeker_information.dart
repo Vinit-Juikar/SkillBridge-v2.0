@@ -27,6 +27,14 @@ class SeekerInformation extends StatelessWidget {
   Widget build(BuildContext context) {
     final User? user = Auth().currentUser;
     var number = user?.phoneNumber ?? '9876543210';
+
+    _firstName.text = '';
+    _lastName.text = '';
+    _address.text = '';
+    _dateInput.text = '';
+    _email.text = '';
+    _aadhar.text = '';
+    _profileDownload.text = '';
     return Scaffold(
       body: SingleChildScrollView(
         child: Stack(
@@ -346,11 +354,11 @@ class ImagePickerSS extends StatefulWidget {
 }
 
 class _ImagePickerSSState extends State<ImagePickerSS> {
-  var number = '9876543210';
+  var number;
   File? image;
   UploadTask? uploadTask;
   Future uploadFile() async {
-    final path = 'userprofile/profileImage$number.jpg';
+    final path = 'userprofile/profileImageAKMPVGS${number}897543210+.jpg';
     final file = File(image!.path);
     final ref = FirebaseStorage.instance.ref().child(path);
     uploadTask = ref.putFile(file);
@@ -374,8 +382,8 @@ class _ImagePickerSSState extends State<ImagePickerSS> {
 
   @override
   Widget build(BuildContext context) {
-    // final User? user = Auth().currentUser;
-    // number = user?.phoneNumber ?? '9876543210';
+    final User? user = Auth().currentUser;
+    number = user?.phoneNumber ?? '9876543210';
     return Container(
       height: 250,
       width: double.infinity,
@@ -400,7 +408,13 @@ class _ImagePickerSSState extends State<ImagePickerSS> {
                       color: Colors.white,
                       size: 50,
                     )
-                  : Image.file(image!),
+                  : ClipRRect(
+                      borderRadius: BorderRadius.circular(25),
+                      child: Image.file(
+                        image!,
+                        fit: BoxFit.fitWidth,
+                      ),
+                    ),
             ),
           ),
           Padding(
@@ -504,7 +518,7 @@ class UserProfile {
           'mechanic': false,
           'painter': false,
           'plumber': false,
-          'tile settler': false,
+          'tile setter': false,
           'welder': false,
         },
         'applyJobList': [],
