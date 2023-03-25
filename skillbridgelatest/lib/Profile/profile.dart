@@ -56,7 +56,7 @@ class profile extends StatelessWidget {
                                   borderRadius: BorderRadius.circular(100),
                                   border: Border.all(color: Colors.black)),
                               child: Image.asset(
-                                "assets/images/mechanic.jpeg",
+                                "assets/imagesGauri/mechanic.jpeg",
                                 fit: BoxFit.cover,
                               ),
                             ),
