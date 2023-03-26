@@ -18,12 +18,37 @@ List work = [
   "Welder"
 ];
 
+String seekerfName = '';
+String seekerlName = '';
+String seekerAddress = '';
+String seekerImage = '';
+String seekerGender = '';
+
 class SeekerInfoRoute extends StatelessWidget {
   var index;
   SeekerInfoRoute(this.index, {super.key});
   @override
   Widget build(BuildContext context) {
     String profes = professionsOnFirebase[index].toString();
+    var number = '';
+    final User? user = Auth().currentUser;
+    number = user?.phoneNumber ?? 'dfsfsdfe';
+    final providerRef = FirebaseFirestore.instance
+        .collection('userInformation')
+        .doc('AKMPVGS${number}89754321');
+    //Provider Request
+    providerRef.get().then((DocumentSnapshot documentSnapshot) {
+      if (documentSnapshot.exists) {
+        seekerfName = documentSnapshot.get('fName');
+        seekerlName = documentSnapshot.get('lName');
+        seekerAddress = documentSnapshot.get('address');
+        seekerImage = documentSnapshot.get('image');
+        seekerGender = documentSnapshot.get('gender');
+        print('');
+      } else {
+        print('Document does not exist');
+      }
+    });
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Colors.white,
@@ -119,9 +144,21 @@ class SeekerInfoRoute extends StatelessWidget {
                                 child: ElevatedButton(
                                     onPressed: () {
                                       createUser(
-                                          userSnapshot[index]['id'],
-                                          userSnapshot[index]['workType'],
-                                          userSnapshot[index]['name']);
+                                        userSnapshot[index]["id"],
+                                        userSnapshot[index]["workType"],
+                                        userSnapshot[index]["name"],
+                                        userSnapshot[index]["address"],
+                                        userSnapshot[index]["image"],
+                                        seekerGender,
+                                        userSnapshot[index].id,
+                                        seekerlName,
+                                        seekerfName,
+                                        seekerAddress,
+                                        seekerImage,
+                                      );
+                                      ScaffoldMessenger.of(context)
+                                          .showSnackBar(const SnackBar(
+                                              content: Text("Job Applied")));
                                     },
                                     child: const Text(
                                       'Apply Now',
@@ -142,74 +179,91 @@ class SeekerInfoRoute extends StatelessWidget {
   }
 }
 
-void createUser(String providerIdd, String work, String providerName) async {
+void createUser(
+  String providerid,
+  String workType,
+  String providerName,
+  String providerAddress,
+  String providerImage,
+  String seekerGender,
+  String jobid,
+  String seekerlName,
+  String seekerfName,
+  String seekerAddress,
+  String seekerImage,
+) async {
   final User? user = Auth().currentUser;
   var number = '';
   number = user?.phoneNumber ?? 'User email';
 
-  //Provider Request
-  final providerRequestId =
-      FirebaseFirestore.instance.collection('seekerRequests').doc();
+  final jobRequestRef =
+      FirebaseFirestore.instance.collection('jobRequest').doc();
 
-  final userProfile = UserProfile(
-    providerId: providerIdd,
-    providerName: providerName,
-    work: work,
-    seekerId: number,
-    id: providerRequestId.id,
-  );
-  final json = userProfile.toJson();
-  await providerRequestId.set(json);
+  final seekerRef = FirebaseFirestore.instance
+      .collection('userInformation')
+      .doc('AKMPVGS${number}89754321');
 
-  //Provider Update
-  final seekId = FirebaseFirestore.instance
-      .collection('seekersInformation')
-      .doc(providerIdd);
-  seekId.get().then((DocumentSnapshot documentSnapshot) {
+  final providerRef =
+      FirebaseFirestore.instance.collection('userInformation').doc(providerid);
+  //Job Profile Update
+  final createJobRef =
+      FirebaseFirestore.instance.collection('createJob').doc(jobid);
+
+  createJobRef.get().then((DocumentSnapshot documentSnapshot) {
     if (documentSnapshot.exists) {
-      seekId
+      createJobRef
           .update({
-            'RList': FieldValue.arrayUnion([providerRequestId.id])
+            'recieveList': FieldValue.arrayUnion([jobRequestRef.id])
           })
           .then((value) => print('Field updated successfully'))
           .catchError((error) => print('Failed to update field: $error'));
     } else {}
   });
 
-  //Seeker Or User Update
-  final provid =
-      FirebaseFirestore.instance.collection('seekersInformation').doc(number);
-  provid.get().then((DocumentSnapshot documentSnapshot) {
+  //Provider Or User Update
+  seekerRef.get().then((DocumentSnapshot documentSnapshot) {
     if (documentSnapshot.exists) {
-      provid
+      seekerRef
           .update({
-            'SList': FieldValue.arrayUnion([providerRequestId.id])
+            'applyJobList': FieldValue.arrayUnion([jobRequestRef.id]),
           })
           .then((value) => print('Field updated successfully'))
           .catchError((error) => print('Failed to update field: $error'));
     } else {}
   });
-}
 
-class UserProfile {
-  final String providerId;
-  final String providerName;
-  final String work;
-  final String seekerId;
-  final String id;
-
-  UserProfile({
-    required this.providerId,
-    required this.providerName,
-    required this.work,
-    required this.seekerId,
-    required this.id,
+  //Seeker Notification Update
+  providerRef.get().then((DocumentSnapshot documentSnapshot) {
+    if (documentSnapshot.exists) {
+      providerRef
+          .update({
+            'notification': FieldValue.arrayUnion([
+              {
+                'requestid': createJobRef.id,
+                'id': 'AKMPVGS${number}89754321',
+                'type': 'job',
+                'name': '$seekerfName $seekerlName',
+                'workType': workType,
+              }
+            ]),
+          })
+          .then((value) => print('Field updated successfully'))
+          .catchError((error) => print('Failed to update field: $error'));
+    } else {}
   });
-  Map<String, dynamic> toJson() => {
-        'id': id,
-        'providerId': providerId,
-        'providerName': providerName,
-        'work': work,
-        'seekerId': seekerId,
-      };
+  await jobRequestRef.set({
+    'id': jobRequestRef.id,
+    'jobid': jobid,
+    'providerid': providerid,
+    'seekerid': 'AKMPVGS${number}89754321',
+    'seekerName': '$seekerfName $seekerlName',
+    'providerName': providerName,
+    'seekerAddress': seekerAddress,
+    'providerAddress': providerAddress,
+    'seekerGender': seekerGender,
+    'workType': workType,
+    'applicationStatus': 'Offer Sent',
+    'seekerImage': seekerImage,
+    'providerImage': providerImage,
+  });
 }

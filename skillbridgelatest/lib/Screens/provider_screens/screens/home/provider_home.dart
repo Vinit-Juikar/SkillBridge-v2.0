@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:skillbridgelatest/Common/shared_p.dart';
+import 'package:skillbridgelatest/Screens/provider_screens/profile/provider_profile.dart';
 import 'package:skillbridgelatest/Screens/provider_screens/screens/home/job_adding.dart';
 import 'package:skillbridgelatest/Screens/provider_screens/screens/profile_view_screens/profile_viewing.dart';
 import 'package:skillbridgelatest/login/firebase/auth.dart';
@@ -12,13 +14,24 @@ class ProviderHomeScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    print('working');
+    AddingUserInformation();
     return Scaffold(
       appBar: AppBar(
         leading: GestureDetector(
-          onTap: () {},
-          child: const Icon(
-            Icons.ad_units_rounded,
-            color: Colors.black,
+          onTap: () {
+            Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (context) => const ProviderProfile(),
+                ));
+          },
+          child: Container(
+            child: const Icon(
+              Icons.person,
+              color: Colors.black,
+              size: 25,
+            ),
           ),
         ),
         backgroundColor: const Color.fromARGB(0, 0, 0, 0),

@@ -52,9 +52,16 @@ class SelectProfile extends StatelessWidget {
         backgroundColor: const Color.fromARGB(0, 0, 0, 0),
         elevation: 0,
         automaticallyImplyLeading: false,
-        leading: const Icon(
-          Icons.arrow_back_ios_new,
-          color: Colors.grey,
+        leading: GestureDetector(
+          onTap: () {
+            Navigator.pop(context);
+          },
+          child: Container(
+            child: const Icon(
+              Icons.arrow_back_ios_new,
+              color: Colors.grey,
+            ),
+          ),
         ),
         title: const Text(
           'Professions',

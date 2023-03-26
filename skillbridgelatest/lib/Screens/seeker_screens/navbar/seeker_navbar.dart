@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:skillbridgelatest/Screens/seeker_screens/screens/home/seeker_home.dart';
 
+import '../screens/request_screens/seeker_request.dart';
+
 class SeekerNavbar extends StatefulWidget {
   const SeekerNavbar({super.key});
 
@@ -18,10 +20,7 @@ class _SeekerNavbarState extends State<SeekerNavbar> {
       'Feed',
       style: optionStyle,
     ),
-    const Text(
-      'Request',
-      style: optionStyle,
-    ),
+    const RequestsSeeker(),
     const Text(
       'News',
       style: optionStyle,

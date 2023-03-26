@@ -1,12 +1,12 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:skillbridgelatest/Screens/seeker_screens/profile/seeker_profile.dart';
 import 'package:skillbridgelatest/Screens/seeker_screens/screens/job_view_screens/job_viewing.dart';
-import 'package:skillbridgelatest/widgetTree/widgetTree.dart';
+import 'package:skillbridgelatest/login/seeker/select_profile.dart';
 
 import '../../../../Common/Lists.dart';
 import '../../../../login/firebase/auth.dart';
-import '../../../../login/seeker/select_profile.dart';
 
 List vara = [
   false,
@@ -33,7 +33,6 @@ class SeekerHomeScreen extends StatelessWidget {
         .doc('AKMPVGS${number}89754321');
     docref.get().then((DocumentSnapshot documentSnapshot) {
       if (documentSnapshot.exists) {
-        fName = documentSnapshot.get('fName');
         vara[0] = documentSnapshot.get('createdProfile.carpenter');
         vara[1] = documentSnapshot.get('createdProfile.electrician');
         vara[2] = documentSnapshot.get('createdProfile.electronic repairs');
@@ -54,6 +53,21 @@ class SeekerHomeScreen extends StatelessWidget {
         automaticallyImplyLeading: false,
         elevation: 0,
         backgroundColor: const Color.fromARGB(0, 0, 0, 0),
+        leading: GestureDetector(
+          onTap: () {
+            Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (context) => const SeekerProfile(),
+                ));
+          },
+          child: Container(
+            child: const Icon(
+              Icons.person,
+              color: Colors.black,
+            ),
+          ),
+        ),
         title: Row(
           children: const [
             Text(
@@ -77,14 +91,13 @@ class SeekerHomeScreen extends StatelessWidget {
       ),
       floatingActionButton: FloatingActionButton(
         onPressed: () {
-          Auth().signOut();
           Navigator.push(
               context,
               MaterialPageRoute(
-                builder: (context) => const WidgetTree(),
+                builder: (context) => const SelectProfile(),
               ));
         },
-        child: const Icon(Icons.add),
+        child: const Icon(Icons.work_outline_outlined),
       ),
     );
   }
@@ -334,7 +347,7 @@ class AdSection extends StatelessWidget {
                               width: MediaQuery.of(context).size.width / 2.2,
                               height: 120,
                               child: const Text(
-                                  'More Opportunities to explore in electronic sector'),
+                                  'More Opportunities to explore in Carpentry sector'),
                             ),
                             Container(
                               child: TextButton(
@@ -385,7 +398,7 @@ class AdSection extends StatelessWidget {
                               width: MediaQuery.of(context).size.width / 2.2,
                               height: 120,
                               child: const Text(
-                                  'More Opportunities to explore in electronic sector'),
+                                  'More Opportunities to explore in Tile Setter sector'),
                             ),
                             Container(
                               child: TextButton(
@@ -436,7 +449,7 @@ class AdSection extends StatelessWidget {
                               width: MediaQuery.of(context).size.width / 2.2,
                               height: 120,
                               child: const Text(
-                                  'More Opportunities to explore in electronic sector'),
+                                  'More Opportunities to explore in Painting sector'),
                             ),
                             Container(
                               child: TextButton(
@@ -487,7 +500,7 @@ class AdSection extends StatelessWidget {
                               width: MediaQuery.of(context).size.width / 2.2,
                               height: 120,
                               child: const Text(
-                                  'More Opportunities to explore in electronic sector'),
+                                  'More Opportunities to explore in Welding sector'),
                             ),
                             Container(
                               child: TextButton(

@@ -18,11 +18,6 @@ List work = [
   "Welder"
 ];
 
-String providerfName = '';
-String providerlName = '';
-String providerAddress = '';
-String providerImage = '';
-
 class ProfileViewingScreen extends StatefulWidget {
   var index;
   ProfileViewingScreen(this.index, {super.key});
@@ -33,6 +28,10 @@ class ProfileViewingScreen extends StatefulWidget {
 
 class _ProfileViewingScreenState extends State<ProfileViewingScreen> {
   bool rated = false;
+  String providerfName = '';
+  String providerlName = '';
+  String providerAddress = '';
+  String providerImage = '';
   @override
   Widget build(BuildContext context) {
     final User? user = Auth().currentUser;
@@ -40,7 +39,7 @@ class _ProfileViewingScreenState extends State<ProfileViewingScreen> {
     number = user?.phoneNumber ?? 'dfsfsdfe';
     final providerRef = FirebaseFirestore.instance
         .collection('userInformation')
-        .doc('AKMPVGS${number}89754321');
+        .doc('AKMPVGS${number}897543210');
     //Provider Request
     providerRef.get().then((DocumentSnapshot documentSnapshot) {
       if (documentSnapshot.exists) {
@@ -198,7 +197,7 @@ class _ProfileViewingScreenState extends State<ProfileViewingScreen> {
                                     Expanded(
                                       child: Center(
                                         child: JobIcon(
-                                          userSnapshot[index]['id'],
+                                          userSnapshot[index]['id'].toString(),
                                           userSnapshot[index]['workType']
                                               .toString(),
                                           userSnapshot[index]['name']
@@ -461,8 +460,6 @@ class _JobIconState extends State<JobIcon> {
             widget.providerAddress,
             widget.providerImage,
           );
-          ScaffoldMessenger.of(context).showSnackBar(
-              const SnackBar(content: Text("Hiring Request sent")));
         }
         have = !have;
         setState(() {});
@@ -531,7 +528,7 @@ void createUser(
 
   final providerRef = FirebaseFirestore.instance
       .collection('userInformation')
-      .doc('AKMPVGS${number}89754321');
+      .doc('AKMPVGS${number}897543210');
 
   final seekerRef =
       FirebaseFirestore.instance.collection('userInformation').doc(seekerid);
@@ -564,14 +561,13 @@ void createUser(
   //Seeker Notification Update
   seekerRef.get().then((DocumentSnapshot documentSnapshot) {
     if (documentSnapshot.exists) {
-      seekerRef
+      providerRef
           .update({
             'notification': FieldValue.arrayUnion([
               {
-                'requestid': hireRequestRef.id,
-                'id': 'AKMPVGS${number}89754321',
-                'type': 'hire',
-                'name': '$providerfName $providerlName',
+                'hireRequest': hireRequestRef.id,
+                'providerid': 'AKMPVGS${number}897543210',
+                'providerName': '$providerfName $providerlName',
                 'workType': workType,
               }
             ]),
@@ -584,7 +580,7 @@ void createUser(
     'id': hireRequestRef.id,
     'profileid': profileid,
     'seekerid': seekerid,
-    'providerid': 'AKMPVGS${number}89754321',
+    'providerid': 'AKMPVGS${number}897543210',
     'providerName': '$providerfName $providerlName',
     'seekerName': seekerName,
     'seekerAddress': seekerAddress,
@@ -595,4 +591,27 @@ void createUser(
     'seekerImage': seekerImage,
     'providerImage': providerImage,
   });
+}
+
+class UserProfile {
+  final String seekerId;
+  final String seekerName;
+  final String work;
+  final String providerId;
+  final String id;
+
+  UserProfile({
+    required this.seekerId,
+    required this.seekerName,
+    required this.work,
+    required this.providerId,
+    required this.id,
+  });
+  Map<String, dynamic> toJson() => {
+        'id': id,
+        'seekerId': seekerId,
+        'seekerName': seekerName,
+        'work': work,
+        'providerId': providerId,
+      };
 }
