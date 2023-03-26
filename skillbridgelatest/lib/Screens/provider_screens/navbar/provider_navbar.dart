@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
 import '../screens/home/provider_home.dart';
+import '../screens/request_screen/provider_request.dart';
 
 class ProviderNavbar extends StatefulWidget {
   const ProviderNavbar({super.key});
@@ -19,10 +20,7 @@ class _ProviderNavbarState extends State<ProviderNavbar> {
       'Feed',
       style: optionStyle,
     ),
-    const Text(
-      'Request',
-      style: optionStyle,
-    ),
+    const RequestsProvider(),
     const Text(
       'News',
       style: optionStyle,
