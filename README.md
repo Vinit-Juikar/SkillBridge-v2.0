@@ -1,7 +1,3 @@
-# skillbridge
-
-A new Flutter project.
-
 # SkillBridge-v2.0
 In today's world, finding a job can be a challenging task, especially for those who are unskilled or uneducated. The current pandemic situation has worsened the unemployment scenario, and people are struggling to find employment opportunities. That is where my Android application comes in - it provides a platform that connects job providers with job seekers, making the entire process of hiring much simpler.
 
